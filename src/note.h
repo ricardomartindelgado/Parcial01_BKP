@@ -43,47 +43,79 @@
 	TODO INGRESO EL RANGO Y ME DEVUELVE UN ARRAY CARGADO CON LOS ELEMENTOS
 
 
-typedef struct {
-	int idUsuario;
-	int isEmpty;
 
 
-	char email[25];
-	har password[10];
-	char direccion[50];
-	int codigoPostal;
-} Usuario;
+//		typedef struct {
+//			int idUsuario;
+//			int isEmpty;
+//
+//
+//			char email[25];
+//			char password[10];
+//			char direccion[50];
+//			int codigoPostal;
+//		} Usuario;
+//
+//
+//		typedef struct {
+//			int idProducto;
+//			int isEmpty;
+//
+//			int idUsuarioVentaFK;
+//
+//
+//			char nameProduct[25];
+//			float precio;
+//			int categoria;
+//			int stock;
+//		} Producto;
+//
+//
+//		typedef struct {
+//			int idTracking;
+//			int isEmpty;
+//
+//
+//			int idProductoFK;
+//			int idUsuarioCompraFK;
+//			int idUsuarioVentaFK;
+//
+//
+//			int cantidad;
+//			int distanciaKM;
+//			int horaLlegada;
+//		} Tracking;
 
 
-typedef struct {
-	int idProducto;
-	int isEmpty;
 
 
-	char nameProduct[25];
-	float precio;
-	int categoria;
-	int stock;
-} Producto;
-
-
-typedef struct {
-	int idTracking;
-	int isEmpty;
-
-
-	int idProductoFK;
-	int idUsuarioCompraFK;
-	int idUsuarioVentaFK;
-
-
-	int cantidad;
-	int distanciaKM
-	int horaLlegada;
-} Tracking;
-
-
-
+//		switch (option)	{
+//
+//
+//			case 1: // COMPRAR
+//
+//			break;
+//
+//
+//
+//			case 2: // VENDER
+//
+//			break;
+//
+//
+//			case 3: // ESTADO DE COMPRAS
+//
+//			break;
+//
+//
+//
+//			case 4: // ESTADO DE VENTAS
+//
+//			break;
+//
+//
+//
+//		} // END SWITCH
 
 
 
@@ -144,6 +176,22 @@ typedef struct {
 
 -------------------------------------------------------------------------
 
+CHEQUEAR
+#ifdef _linux_
+#define SO "Linux"
+#define LIMPIAR_CONSOLA system("clear");
+#define LIMPIAR_BUFFER __fpurge(stdin);
+#include <stdio_ext.h>
+#elif _WIN32
+#define SO "Windows"
+#define LIMPIAR_CONSOLA system("cls");
+#define LIMPIAR_BUFFER fflush(stdin);
+#define LIMPIAR_SALIDA	setbuf(stdout,NULL);
+#elif _APPLE_
+#define SO "OSX"
+#define LIMPIAR_CONSOLA system("clear");
+#define LIMPIAR_BUFFER fpurge(stdin);
+#endif
 
 
 

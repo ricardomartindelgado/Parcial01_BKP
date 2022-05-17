@@ -24,5 +24,10 @@ int utn_arrayBubbleShortInt(int* pString, int LEN, char ASC_OR_DESC);
 int utn_arrayBubbleShortFloat(float* pArray, int LEN, char ASC_OR_DESC);
 
 
+//	TIME
+long int utn_timeCurrent(void);
+long int utn_timeAdd(double segAdd);
+
+
 
 #endif /* UTN_OPERATIONS_H_ */

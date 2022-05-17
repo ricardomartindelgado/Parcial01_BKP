@@ -1,40 +1,70 @@
 /*
- * 		Passenger.h
+ * 		Tracking.h
  *      Author: Martin Delgado
  */
 
-#ifndef PASSENGER_H_
-#define PASSENGER_H_
+#ifndef TRACKING_H_
+#define TRACKING_H_
 
-#define QTY_PASSENGER 2000
-#define ID_LEN 5000
-#define NAME_LEN 51
-#define LASTNAME_LEN 51
-#define FLYCODE_LEN 10
+#define QTY_TRACKING 30
+#define ID_TRACKING_LEN 5000		//DEBERIA VALIDAR CANTIDAD DE TRACKING
+#define EMAIL_LEN 25				//NO NECESITO
+#define PASS_LEN_MAX 10			//NO NECESITO
+#define NAME_TRACKING_LEN 51		//NO NECESITO
+
+
+
+#define FLYCODE_LEN 10		//NO NECESITO
+#define QTY_CATEGORY 8		//NO NECESITO
+#define PRICE_LEN 10000000	//NO NECESITO
+#define STOCK_LEN 100			//NO NECESITO
+
 
 
 typedef struct {
-	char namePassenger[NAME_LEN];
-	char lastnamePassenger[LASTNAME_LEN];
-	float pricePassenger;
-	int typePassenger;
-	char flycode[FLYCODE_LEN];
-	int statusFlight;
+	char email[EMAIL_LEN];					//NO NECESITO
+	char password[PASS_LEN_MAX];			//NO NECESITO
+	char flycode[FLYCODE_LEN];				//NO NECESITO
+	char nameProduct[NAME_TRACKING_LEN]; 	//NO NECESITO
+	
+
+
+	float priceProduct;		//NO NECESITO
+	int typeCategory;		//NO NECESITO
+
+
+
+	int cantComprar;
+	int distanciaKM;
+	long int horaLlegada;
+
+
+	int idUserFK;//
+	int idProductFK;
+
 
 	int isEmpty;
-	int id;
-}Passenger;
+	int idTracking;
+}Tracking;
 
 
 
-int printMenuYesOrNot(void);
+int track_printMenuYesOrNot(char* MSG);
+
+
+/**
+ * \brief Imprime las categorias
+ * \return Retorna 0 (EXITO) y -1 (ERROR)
+ */
+int track_printCategory(void);
+
 /**
  * \brief Imprime un prodente del array
  * \param prod Array de Producto a ser actualizado
  * \param LEN Limite del array
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int pass_print(Passenger* prod, int indice);
+int track_print(Tracking* prod, int indice);
 
 /**
  * \brief Imprime una lista de Producto del array
@@ -42,7 +72,7 @@ int pass_print(Passenger* prod, int indice);
  * \param LEN Limite del array
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int pass_printArray(Passenger* prod, int LEN);
+int track_printArray(Tracking* prod, int LEN);
 
 /**
  * \brief Inicializa el campo isEmpty en vacio (TRUE)
@@ -50,7 +80,7 @@ int pass_printArray(Passenger* prod, int LEN);
  * \param LEN Limite del array
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int pass_initArray(Passenger* arrayProducto, int LEN);
+int track_initArray(Tracking* arrayProducto, int LEN);
 
 /**
  * \brief Crea un Cliente
@@ -59,7 +89,7 @@ int pass_initArray(Passenger* arrayProducto, int LEN);
  * \param index Posicion a ser creada
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int pass_createArray(Passenger* prod, int LEN, int index);
+int track_createArray(Tracking* prod, int LEN, int index);
 
 /**
  * \brief Actualiza un Cliente
@@ -68,7 +98,7 @@ int pass_createArray(Passenger* prod, int LEN, int index);
  * \param index Posicion a ser actualizada
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int pass_updateArray(Passenger* prod, int LEN, int index);
+int track_updateArray(Tracking* prod, int LEN, int index);
 
 /**
  * \brief Borrar un Cliente
@@ -77,7 +107,7 @@ int pass_updateArray(Passenger* prod, int LEN, int index);
  * \param index Posicion a ser borrada
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int pass_deleteArray(Passenger* prod, int LEN, int index);
+int track_deleteArray(Tracking* prod, int LEN, int index);
 
 /**
  * \brief Obtiene campos de una posicion del array
@@ -85,7 +115,7 @@ int pass_deleteArray(Passenger* prod, int LEN, int index);
  * \param LEN Limite del array
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int pass_getDataCreate(Passenger* prod, int LEN);
+int track_getDataCreate(Tracking* prod, int LEN);
 
 /**
  * \brief Obtiene campos de una posicion del array
@@ -93,7 +123,7 @@ int pass_getDataCreate(Passenger* prod, int LEN);
  * \param LEN Limite del array
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int pass_getDataUpdate(Passenger* prod, int LEN);
+int track_getDataUpdate(Tracking* prod, int LEN);
 
 /**
  * \brief Devueve por referencia un string del tipo
@@ -101,7 +131,7 @@ int pass_getDataUpdate(Passenger* prod, int LEN);
  * \param char Devuelve un string del tipo
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int pass_getTypeString(Passenger* prod, char* pString);
+int track_getTypeString(Tracking* prod, char* pString);
 
 /**
  * \brief Buscar primer posicion vacia del array
@@ -109,7 +139,7 @@ int pass_getTypeString(Passenger* prod, char* pString);
  * \param LEN Limite del array
  * \return Retorna el indice de la posicion vacia >= 0 (EXITO) y -1 (ERROR)
  */
-int pass_getEmptyIndex(Passenger* prod, int LEN);
+int track_getEmptyIndex(Tracking* prod, int LEN);
 
 /**
  * \brief Buscar un ID
@@ -117,15 +147,30 @@ int pass_getEmptyIndex(Passenger* prod, int LEN);
  * \param LEN Limite del array
  * \return Retorna el indice del ID >= 0 (EXITO) y -1 (ERROR)
  */
-int pass_searchId(Passenger* prod, int LEN, int searchId);
+int track_searchId(Tracking* prod, int LEN, int searchId);
 
+/**
+ * \brief Compra un producto
+ * \param prod Array de Producto
+ * \param LEN Limite del array
+ * \return Retorna el indice del ID >= 0 (EXITO) y -1 (ERROR)
+ */
+int track_buyProduct(Tracking* prod, int LEN, int* idProduct);
+
+/**
+ * \brief Compra un producto Precio
+ * \param prod Array de Producto
+ * \param LEN Limite del array
+ * \return Retorna el indice del ID >= 0 (EXITO) y -1 (ERROR)
+ */
+float track_buyProductPrice(Tracking* arrayProductos, int LEN);
 /**
  * \brief Carga forzada de Producto
  * \param prod Array de Producto
  * \param LEN Limite del array
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int pass_loadForced(Passenger* prod, int LEN);
+int track_loadForced(Tracking* prod, int LEN);
 
 /**
  * \brief Ordena por campo Nombre
@@ -134,7 +179,7 @@ int pass_loadForced(Passenger* prod, int LEN);
  * \param ASC_OR_DESC Ordena por criterio ('>') Ascendente o ('<') Descendente
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int pass_arrayBubbleShortOneField(Passenger* pArray, int LEN, char ASC_OR_DESC);
+int track_arrayBubbleShortOneField(Tracking* pArray, int LEN, char ASC_OR_DESC);
 
 /**
  * \brief Ordena por campo Nombre, en caso de ser igual por el siguiente campo
@@ -143,7 +188,7 @@ int pass_arrayBubbleShortOneField(Passenger* pArray, int LEN, char ASC_OR_DESC);
  * \param ASC_OR_DESC Ordena por criterio ('>') Ascendente o ('<') Descendente
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int pass_arrayBubbleShortTwoField(Passenger* pArray, int LEN, char ASC_OR_DESC);
+int track_arrayBubbleShortTwoField(Tracking* pArray, int LEN, char ASC_OR_DESC);
 
 
 
@@ -158,7 +203,7 @@ int pass_arrayBubbleShortTwoField(Passenger* pArray, int LEN, char ASC_OR_DESC);
  * \param LEN Limite del array
  * \return Retorna la suma de precios de todos los pasajero >= 0 (EXITO) y -1 (ERROR)
  */
-float pass_priceTotal(Passenger* arrayProductos, int LEN);
+float track_priceTotal(Tracking* arrayProductos, int LEN);
 
 /**
  * \brief Calcula la cantidad de pasajeros que superan el promedio de precio
@@ -166,7 +211,7 @@ float pass_priceTotal(Passenger* arrayProductos, int LEN);
  * \param LEN Limite del array
  * \return Retorna la cantidad de pasajeros que superan el promedio de precio >= 0 (EXITO) y -1 (ERROR)
  */
-int pass_contPromedioPassenger(Passenger* arrayProductos, int LEN, float promedio);
+int track_contPromedioProduct(Tracking* arrayProductos, int LEN, float promedio);
 
 /**
  * \brief Ordena por campo Nombre, en caso de ser igual por el siguiente campo
@@ -175,7 +220,33 @@ int pass_contPromedioPassenger(Passenger* arrayProductos, int LEN, float promedi
  * \param ASC_OR_DESC Ordena por criterio ('>') Ascendente o ('<') Descendente
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int pass_arrayBubbleShortTwoFieldFlight(Passenger* pArray, int LEN, char ASC_OR_DESC);
-#endif /* PASSENGER_H_ */
+int track_arrayBubbleShortTwoFieldTracking(Tracking* pArray, int LEN, char ASC_OR_DESC);
+
+
+//_____________________________________________________________________________________
+//	USER
+
+
+int track_logInRegister(Tracking* prod, int LEN, char* pEmail, char* pPass);
+int track_logInValidateRegister(Tracking* prod, int LEN, char* pEmail, char* pPass);
+int track_logInValidateUser(Tracking* prod, int LEN, char* pEmail, char* pPass);
+int track_logInData(char* pEmail,  char* pPass);
+
+int track_validateEmail(Tracking* prod, int LEN, char* pEmail, int* index);
+int track_validatePass(Tracking* prod, int LEN, char* pPass, int index);
+
+
+
+
+
+
+int track_calcularKM(int codpostal);
+
+
+
+
+
+
+#endif /* TRACKING_H_ */
 
 

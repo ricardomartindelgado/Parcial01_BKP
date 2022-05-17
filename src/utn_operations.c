@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 
 //#########################################################################################
@@ -210,22 +211,14 @@ int utn_arrayBubbleShortFloat(float* pArray, int LEN, char ASC_OR_DESC)
 
 
 
+long int utn_timeCurrent(void){
+	return time(NULL);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//	RECIBE SEGUNDOS
+long int utn_timeAdd(double segAdd){
+	return segAdd + utn_timeCurrent();
+}
 
 
 

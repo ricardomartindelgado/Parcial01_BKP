@@ -20,6 +20,15 @@
 #define MYGETS_BUFFER_LEN 4096
 
 
+#define PASS_LEN_MIN 4
+#define PASS_LEN_MAX 10
+#define EMAIL_LEN 25
+#define DESCRIPTION_LEN 50
+
+
+
+
+
 static int getInt(int* pArray);
 static int getFloat(float* pArray);
 static int getName(char* pArray);
@@ -43,7 +52,7 @@ int utn_getNumberInt(int* pArray, char* MSG, char* MSG_ERROR, int MIN, int MAX, 
 	int rtn = -1;
 	int buffer;
 
-	if (pArray != NULL && MSG != NULL && MSG_ERROR != NULL && MIN < MAX && RETRY >= 0) {
+	if (pArray != NULL && MSG != NULL && MSG_ERROR != NULL && MIN <= MAX && RETRY >= 0) {
 		do {
 			printf("%s", MSG);
 
@@ -101,7 +110,7 @@ int utn_getNumberFloat(float* pArray, char* MSG, char* MSG_ERROR, float MIN, flo
 	int rtn = -1;
 	float buffer;
 
-	if (pArray != NULL && MSG != NULL && MSG_ERROR != NULL && MIN < MAX && RETRY >= 0) {
+	if (pArray != NULL && MSG != NULL && MSG_ERROR != NULL && MIN <= MAX && RETRY >= 0) {
 		do {
 			printf("%s", MSG);
 
@@ -283,7 +292,7 @@ int utn_getDescription(char* pArray, char* MSG, char* MSG_ERROR, int RETRY)
 static int getDescription(char* pArray)
 {
 	int rtn = -1;
-	char buffer[64];
+	char buffer[DESCRIPTION_LEN];
 
 	if (pArray != NULL) {
 		if (!myGets(buffer,sizeof(buffer)) && isDescription(buffer)) {
@@ -349,6 +358,7 @@ int utn_getEmail(char* pArray, char* MSG, char* MSG_ERROR, int RETRY)
 				break;
 			}
 			printf("%s >> Retry = %d \n", MSG_ERROR, RETRY);
+			printf(">>HASTA %d CHARACTERS\n", EMAIL_LEN - 1);
 			RETRY--;
 
 		} while(RETRY >= 0);
@@ -360,7 +370,7 @@ int utn_getEmail(char* pArray, char* MSG, char* MSG_ERROR, int RETRY)
 static int getEmail(char* pArray)
 {
 	int rtn = -1;
-	char buffer[64];
+	char buffer[EMAIL_LEN];
 
 	if (pArray != NULL) {
 		if (!myGets(buffer,sizeof(buffer)) && isEmail(buffer)) {
@@ -546,13 +556,14 @@ int utn_getPass(char* pArray, char* MSG, char* MSG_ERROR, int RETRY)
 		do {
 			printf("%s", MSG);
 
-			if (!getPass(buffer)){
+			if (!getPass(buffer) && strlen(buffer) >= PASS_LEN_MIN){
 				strcpy(pArray, buffer);
 				rtn = 0;
 				break;
 			}
 			printf("%s >> Retry = %d \n", MSG_ERROR, RETRY);
 			printf(">>PERMITIDOS: 'a-z', 'A-Z', '0-9', '!', '.', '-', '_', '@' , '#', '*', '/', '&' \n");
+			printf(">>MIN %d - MAX %d DIGITOS\n", PASS_LEN_MIN, PASS_LEN_MAX - 1);
 			RETRY--;
 
 		} while(RETRY >= 0);
@@ -564,7 +575,7 @@ int utn_getPass(char* pArray, char* MSG, char* MSG_ERROR, int RETRY)
 static int getPass(char* pArray)
 {
 	int rtn = -1;
-	char buffer[64];
+	char buffer[PASS_LEN_MAX];
 
 	if (pArray != NULL) {
 		if (!myGets(buffer,sizeof(buffer)) && isPass(buffer)) {
